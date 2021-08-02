@@ -1,0 +1,30 @@
+.comments {
+  margin: 0;
+  padding: 0;
+
+  .commentItem {
+    list-style: none;
+
+    &:not(:last-child) {
+      padding-bottom: 30px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 30px;
+    }
+
+    .commentContentAuthor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+      color: #555;
+
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+
+  }
+
+}

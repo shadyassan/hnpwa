@@ -2,17 +2,22 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import './App.scss';
 import Wrapper from './components/shared/Wrapper';
+import TopBar from './components/shared/Topbar';
 import ListingPage from './pages/ListingPage';
-import News from './pages/News';
+import Post from './pages/Post';
 
 const App = () => {
   return (
     <Wrapper>
+      <TopBar />
       <Route exact path="/">
-        <ListingPage />
+        <ListingPage url="news" />
       </Route>
-      <Route path="/news/:id">
-        <News />
+      <Route exact path="/newest">
+        <ListingPage url="newest" />
+      </Route>
+      <Route path="/post/:id">
+        <Post />
       </Route>
     </Wrapper>
   );

@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
+
 body {
   font-family: 'Roboto', sans-serif;
   color: #666;
   font-size: 14px;
-  line-height: 1.2rem;
+  line-height: 1.5;
 }
 
 a {
@@ -17,7 +18,19 @@ a {
   }
 }
 
+h1, h2, h4, h4, h5, h6 {
+  font-weight: 400;
+}
+
 .container {
-  margin: 30px auto;
+  margin: 0 auto;
   max-width: 800px;
+}
+
+.ascending {
+  .table-caret-down { color: #1890ff; }
+}
+
+.descending {
+  .table-caret-up { color: #1890ff;}
 }

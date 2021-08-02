@@ -1,11 +1,5 @@
-import {
-  createContext,
-  useReducer,
-  useState,
-  useContext,
-  useEffect,
-} from 'react';
-import { getAllNewsAPI } from '../api/newsApi';
+import { createContext, useState, useContext } from 'react';
+import { getAllDataAPI } from '../api/newsApi';
 
 export const AppStateContext = createContext();
 export const AppDispatchContext = createContext();
@@ -44,13 +38,13 @@ export function useAppDispatch() {
   return dispatch;
 }
 
-export function useFetchNews() {
+export function useFetch() {
   const dispatch = useAppDispatch();
 
-  return function (page) {
+  return function (url, page) {
     try {
       dispatch((prev) => ({ ...prev, loading: true }));
-      getAllNewsAPI(page).then((data) => {
+      getAllDataAPI(url, page).then((data) => {
         dispatch((prev) => ({
           ...prev,
           lists: [...prev.lists, ...data],

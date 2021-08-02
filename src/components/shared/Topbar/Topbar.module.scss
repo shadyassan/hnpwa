@@ -1,0 +1,30 @@
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 0;
+
+  .logImg {
+    max-width: 50px;
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+
+    li {
+      list-style: none;
+
+      &:not(:last-child) {
+        margin-right: 25px;
+      }
+
+      .selected {
+        color: #1890ff;
+      }
+
+    }
+
+  }
+
+}

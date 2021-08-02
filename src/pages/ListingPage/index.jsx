@@ -1,9 +1,9 @@
-import Table from './components/Table';
+import Table from '../../components/shared/Table';
 
-const ListingPage = () => {
+const ListingPage = ({ url }) => {
   return (
     <div className="site-main">
-      <Table />
+      <Table url={url} />
     </div>
   );
 };

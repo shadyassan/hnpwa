@@ -10,9 +10,5 @@ export const columns = [
   {
     title: 'Time',
     dataIndex: 'time',
-    sorter: {
-      compare: (a, b) => a.time - b.time,
-      multiple: 1,
-    },
   },
 ];
