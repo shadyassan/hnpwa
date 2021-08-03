@@ -6,4 +6,4 @@ npm dev
 
 2. **Website URL**
 
-https://inspiring-jepsen-8cf807.netlify.app/
+https://hnpwareacttesttask.netlify.app/
