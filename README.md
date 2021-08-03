@@ -2,7 +2,7 @@
 
 1.  **Start developing with https://github.com/tastejs/hacker-news-pwas/blob/master/docs/api.md/**
 
-npm dev
+yarn dev
 
 2. **Website URL**
 
