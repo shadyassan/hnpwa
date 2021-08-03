@@ -1,21 +1,19 @@
-import { Link, NavLink } from 'react-router-dom';
-import logo from '../../../assets/images/logo.png';
-import stl from './Topbar.module.scss';
+import { memo } from 'react';
+import { NavLink } from 'react-router-dom';
+import Logo from '../Logo';
 
 const TopBar = () => {
   return (
-    <div className={stl.topBar}>
-      <Link to="/">
-        <img src={logo} alt="#" className={stl.logImg} />
-      </Link>
-      <ul className={stl.navigation}>
+    <div className="topBar">
+      <Logo />
+      <ul className="navigation">
         <li>
-          <NavLink exact to="/" activeClassName={stl.selected}>
+          <NavLink exact to="/" activeClassName="selected">
             News
           </NavLink>
         </li>
         <li>
-          <NavLink exact to="/newest" activeClassName={stl.selected}>
+          <NavLink exact to="/newest" activeClassName="selected">
             Newest
           </NavLink>
         </li>
@@ -24,4 +22,4 @@ const TopBar = () => {
   );
 };
 
-export default TopBar;
+export default memo(TopBar);

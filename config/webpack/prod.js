@@ -5,14 +5,35 @@ const common = require('./common');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
+const CSSModuleLoader = {
+  loader: 'css-loader',
+  options: {
+    modules: true,
+    localIdentName: '[name]_[local]',
+    importLoaders: 1,
+    camelCase: true,
+    sourceMap: false,
+  },
+};
+
+const CSSLoader = {
+  loader: 'css-loader',
+  options: {
+    modules: 'global',
+    importLoaders: 1,
+    camelCase: true,
+    sourceMap: false,
+  },
+};
+
 module.exports = merge(common, {
   mode: 'production',
   entry: {
     index: {
       import: `${paths.src}/index.js`,
-      dependOn: ['react', 'helpers'],
+      dependOn: ['react'],
     },
-    react: ['react', 'react-dom', 'prop-types'],
+    react: ['react', 'react-dom'],
   },
   devtool: false,
   output: {

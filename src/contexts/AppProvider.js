@@ -10,7 +10,7 @@ export const initialState = {
   error: null,
 };
 
-export const AppContextProvider = ({ children }) => {
+const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useState(initialState);
 
   return (
@@ -21,6 +21,10 @@ export const AppContextProvider = ({ children }) => {
     </AppStateContext.Provider>
   );
 };
+
+export const RouteProvider = ({ children }) => (
+  <AppContextProvider>{children}</AppContextProvider>
+);
 
 export function useAppState() {
   const state = useContext(AppStateContext);
@@ -41,7 +45,7 @@ export function useAppDispatch() {
 export function useFetch() {
   const dispatch = useAppDispatch();
 
-  return function (url, page) {
+  return (url, page) => {
     try {
       dispatch((prev) => ({ ...prev, loading: true }));
       getAllDataAPI(url, page).then((data) => {

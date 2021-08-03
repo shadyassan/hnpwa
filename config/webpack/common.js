@@ -5,7 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const Dotenv = require('dotenv-webpack');
-
 const babelLoader = {
   loader: 'babel-loader',
   options: {
@@ -66,7 +65,7 @@ module.exports = {
       },
       {
         test: /\.md$/,
-        use: ['html-loader', 'markdown-loader'],
+        use: ['html-loader'],
       },
       {
         test: /\.(jpe?g|png|gif|svg|eot|ttf|woff2?)$/i,
@@ -89,13 +88,12 @@ module.exports = {
       template: `${paths.public}/index.html`,
       filename: 'index.html',
       templateParameters: {
-        analytics: 'Google Analytics ID',
         author: 'Shady',
-        publishedDate: '2021-04-10',
-        description: 'react_test_task',
+        publishedDate: '2021-08-04',
+        description: 'hnpwa',
         keywords: 'webpack, react, template',
-        title: 'react_test_task',
-        url: 'https://github.com/shadyassan/react_test_task',
+        title: 'Test',
+        url: 'https://github.com/shadyassan/hnpwa.git',
       },
     }),
 

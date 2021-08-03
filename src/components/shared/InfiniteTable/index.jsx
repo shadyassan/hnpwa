@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { normalizeString } from '../../../utils';
-import {
-  useAppDispatch,
-  useAppState,
-  useFetch,
-} from '../../../contexts/AppProvider';
-import Loader from '../Loader';
 import { columns } from '../../../data';
-import stl from './Table.module.scss';
-import { initialState } from '../../../contexts/AppProvider';
+
+import Loader from '../Loader';
 import useSortableData from '../../../hooks/useSortableData';
 import CaretDownIcon from '../../../assets/icons/CaretDownIcon';
 import CaretUpIcon from '../../../assets/icons/CaretUpIcon';
+
+const InfiniteLoader = () => (
+  <tr key={0}>
+    <td colSpan={3}>
+      <Loader />
+    </td>
+  </tr>
+);
 
 const TableHead = ({ requestSort, sortConfig }) => {
   const getClassNamesFor = (name) => {
@@ -29,19 +30,19 @@ const TableHead = ({ requestSort, sortConfig }) => {
         {columns.map(({ title, dataIndex }, i) => (
           <th
             key={`${dataIndex}-${i}`}
-            className={stl.tableCell + ' ' + stl.tableColumnHasSorters}>
+            className={'tableCell' + ' ' + 'tableColumnHasSorters'}>
             <div
               className={
-                stl.tableColumnSorters + ' ' + getClassNamesFor(dataIndex)
+                'tableColumnSorters' + ' ' + getClassNamesFor(dataIndex)
               }
               onClick={() => requestSort(dataIndex)}>
-              <span className={stl.tableColumnTitle}>{title}</span>
-              <span className={stl.tableColumnSorter}>
-                <div className={stl.tableColumnSorterInner}>
-                  <span className={stl.caretUp + ' ' + 'table-caret-up'}>
+              <span className={'tableColumnTitle'}>{title}</span>
+              <span className={'tableColumnSorter'}>
+                <div className={'tableColumnSorterInner'}>
+                  <span className={'caretUp' + ' ' + 'table-caret-up'}>
                     <CaretUpIcon />
                   </span>
-                  <span className={stl.caretDown + ' ' + 'table-caret-down'}>
+                  <span className={'caretDown' + ' ' + 'table-caret-down'}>
                     <CaretDownIcon />
                   </span>
                 </div>
@@ -55,18 +56,18 @@ const TableHead = ({ requestSort, sortConfig }) => {
 };
 
 const TableCell = ({ item, title, dataIndex }) => {
-  let maxDateFinal = '';
+  let timeFinal = '';
   if (dataIndex === 'time') {
-    const maxDate = new Date(item[dataIndex]);
-    maxDateFinal = maxDate.toLocaleTimeString();
+    const indexTime = new Date(item[dataIndex]);
+    timeFinal = indexTime.toLocaleTimeString();
   }
 
   return (
-    <td data-title={title} className={stl.tableCell}>
+    <td data-title={title} className={'tableCell'}>
       {dataIndex === 'title' ? (
         <Link to={`/post/${item.id}`}>{item[dataIndex]}</Link>
       ) : dataIndex === 'time' ? (
-        maxDateFinal
+        timeFinal
       ) : (
         normalizeString(item[dataIndex])
       )}
@@ -76,7 +77,7 @@ const TableCell = ({ item, title, dataIndex }) => {
 
 const TableRow = ({ item }) => {
   return (
-    <tr className={stl.tableRow}>
+    <tr className={'tableRow'}>
       {columns.map(({ title, dataIndex }, i) => (
         <TableCell
           key={`${dataIndex}-${i}`}
@@ -89,29 +90,11 @@ const TableRow = ({ item }) => {
   );
 };
 
-const Table = ({ url }) => {
-  const fetchNews = useFetch();
-  const { lists } = useAppState();
-  const dispatch = useAppDispatch();
+const InfiniteTable = ({ setPage, hasMoreItems, lists }) => {
   const { items, requestSort, sortConfig } = useSortableData(lists);
-  const [page, setPage] = useState(1);
-  const [hasMoreItems, setHasMoreItems] = useState(true);
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    dispatch(initialState);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (page <= 10) {
-      fetchNews(url, page);
-    } else {
-      setHasMoreItems(false);
-    }
-  }, [page, url]);
 
   return (
-    <div className={stl.table}>
+    <div className={'table'}>
       <table>
         <TableHead requestSort={requestSort} sortConfig={sortConfig} />
         <InfiniteScroll
@@ -123,19 +106,13 @@ const Table = ({ url }) => {
             setPage((prev) => prev + 1);
           }}
           hasMore={hasMoreItems}
-          loader={
-            <tr key={0}>
-              <td colSpan={3}>
-                <Loader />
-              </td>
-            </tr>
-          }>
-          {lists.length > 0 &&
-            lists.map((item) => <TableRow key={item.id} item={item} />)}
+          loader={<InfiniteLoader />}>
+          {items.length > 0 &&
+            items.map((item) => <TableRow key={item.id} item={item} />)}
         </InfiniteScroll>
       </table>
     </div>
   );
 };
 
-export default Table;
+export default InfiniteTable;
